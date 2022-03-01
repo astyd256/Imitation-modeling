@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lab_3
+namespace lab_4
 {
     public partial class Form1 : Form
     {
@@ -18,7 +18,7 @@ namespace lab_3
         {
             InitializeComponent();
             CurRow = 0;
-            dataGridView1.Rows.Add(1);
+            this.dataGridView1.Rows.Add(1);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -26,6 +26,10 @@ namespace lab_3
             if (timer1.Enabled)
             {
                 timer1.Enabled = false;
+                dataGridView1.Rows.Clear();
+                dataGridView1.Refresh();
+                this.dataGridView1.Rows.Add(1);
+                CurRow = 0;
             } 
             else
             {
@@ -63,14 +67,6 @@ namespace lab_3
             if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor == Color.ForestGreen)
                 dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Empty;
             else dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.ForestGreen;
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            dataGridView1.Rows.Clear();
-            dataGridView1.Refresh();
-            dataGridView1.Rows.Add(1);
-            CurRow = 0;
         }
     }
 }
