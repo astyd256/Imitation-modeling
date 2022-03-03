@@ -1,65 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace lab_4
 {
     public partial class Form1 : Form
     {
-        private int CurRow;
-        private Boolean[] WolframCode = new Boolean[8];
         public Form1()
         {
             InitializeComponent();
-            CurRow = 0;
-            this.dataGridView1.Rows.Add(1);
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void onStartBtn_Click(object sender, EventArgs e)
         {
-            if (timer1.Enabled)
+            if (timer1.Enabled) // stop
             {
                 timer1.Enabled = false;
-                dataGridView1.Rows.Clear();
-                dataGridView1.Refresh();
-                this.dataGridView1.Rows.Add(1);
-                CurRow = 0;
             } 
-            else
+            else // start
             {
-                string BinaryCode = Convert.ToString(Convert.ToInt16(numericUpDown1.Value), 2);
-                BinaryCode = new string('0', 8 - BinaryCode.Length) + BinaryCode;
-                for (int i = 0; i < 8; i++)
-                {
-                    if (BinaryCode[7 - i] != '0') WolframCode[i] = true;
-                    else WolframCode[i] = false;
-                }
+
                 timer1.Enabled = true;
             }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            dataGridView1.Rows.Add(1);
-            dataGridView1.Rows[CurRow].HeaderCell.Value = String.Format("{0}", CurRow + 1);
-            int CurCode;
-            for (int CurColumn = 0; CurColumn < 14; CurColumn++)
-            {
-                CurCode = 0;
-                if (CurColumn != 0) if (dataGridView1.Rows[CurRow].Cells[CurColumn - 1].Style.BackColor == Color.ForestGreen) CurCode += 4;
-                if (dataGridView1.Rows[CurRow].Cells[CurColumn].Style.BackColor == Color.ForestGreen) CurCode += 2;
-                if (CurColumn != 13) if (dataGridView1.Rows[CurRow].Cells[CurColumn + 1].Style.BackColor == Color.ForestGreen) CurCode += 1;
+           // Von Neumann neighborhood
+           // Conway's Game of Life rules of surviving.
+           int neighbours;
+           for (int i = 0; i < widthField.Value; i++)
+           {
+                for (int j = 0; j < heightField.Value; j++)
+                {
+                    neighbours = 0;
 
+                    // neighbours counting
+                    if (j != 0 && dataGridView1.Rows[j - 1].Cells[i].Style.BackColor == Color.ForestGreen) neighbours++;
+                    if (j != heightField.Value - 1 && dataGridView1.Rows[j + 1].Cells[i].Style.BackColor == Color.ForestGreen) neighbours++;
+                    if (i != 0 && dataGridView1.Rows[j].Cells[i - 1].Style.BackColor == Color.ForestGreen) neighbours++;
+                    if (i != widthField.Value - 1 && dataGridView1.Rows[j].Cells[i + 1].Style.BackColor == Color.ForestGreen) neighbours++;
 
-                if (WolframCode[CurCode]) dataGridView1.Rows[CurRow + 1].Cells[CurColumn].Style.BackColor = Color.ForestGreen;
-            }
-            CurRow++;
+                    
+                    
+                    if (dataGridView1.Rows[j].Cells[i].Style.BackColor == Color.ForestGreen && neighbours != 2 && neighbours != 3) // if not enough neighbours cell dies
+                        dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.Empty;
+                    if (dataGridView1.Rows[j].Cells[i].Style.BackColor != Color.ForestGreen && neighbours == 3)   // if enough neighbours cell live again
+                        dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.ForestGreen;
+
+                }
+           }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -67,6 +58,39 @@ namespace lab_4
             if (dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor == Color.ForestGreen)
                 dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Empty;
             else dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.ForestGreen;
+        }
+
+        private void genBtn_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+            dataGridView1.RowTemplate.Height = dataGridView1.Height / Convert.ToInt16(heightField.Value);
+            for (int i = 0; i < widthField.Value; i++) dataGridView1.Columns.Add("Column" + Convert.ToString(i), "");
+            dataGridView1.Rows.Add(Convert.ToInt16(heightField.Value));
+            
+        }
+
+        private void genRandBtn_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+            dataGridView1.RowTemplate.Height = dataGridView1.Height / Convert.ToInt16(heightField.Value);
+            for (int i = 0; i < widthField.Value; i++) dataGridView1.Columns.Add("Column" + Convert.ToString(i), "");
+            dataGridView1.Rows.Add(Convert.ToInt16(heightField.Value));
+
+
+            int percent = Convert.ToInt16(numericUpDown2.Value) % 100;
+            Random rand = new Random();
+
+            for (int i = 0; i < widthField.Value; i++)
+            {
+                for (int j = 0; j < heightField.Value; j++)
+                {
+                    if (rand.Next() % 100 < percent) dataGridView1.Rows[j].Cells[i].Style.BackColor = Color.ForestGreen;
+                }
+            }
         }
     }
 }
