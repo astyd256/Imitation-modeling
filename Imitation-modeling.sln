@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab 4", "lab 4\lab 4.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab 8.1", "lab 8.1\lab 8.1.csproj", "{60190360-CA2B-4121-B7CF-4974ED53226C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Magic 8-ball", "Magic 8-ball\Magic 8-ball.csproj", "{3B4B3CB9-7850-4633-9242-AEB26B6B18BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{60190360-CA2B-4121-B7CF-4974ED53226C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60190360-CA2B-4121-B7CF-4974ED53226C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60190360-CA2B-4121-B7CF-4974ED53226C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B4B3CB9-7850-4633-9242-AEB26B6B18BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B4B3CB9-7850-4633-9242-AEB26B6B18BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B4B3CB9-7850-4633-9242-AEB26B6B18BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B4B3CB9-7850-4633-9242-AEB26B6B18BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

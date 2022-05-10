@@ -77,9 +77,8 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2.Location = new System.Drawing.Point(315, 312);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(185, 55);
+            this.label2.Size = new System.Drawing.Size(0, 55);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Answer";
             // 
             // Form1
             // 
